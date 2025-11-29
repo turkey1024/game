@@ -1350,25 +1350,26 @@ function checkMikuCollision(position) {
 
 
 function animate() {
-    requestAnimationFrame(animate); // 只调用一次！
+    requestAnimationFrame(animate);
 
     // 地球旋转
     if (earth) earth.rotation.y += 0.005;
 
-    // 更新物理（包括玩家位置）
+    // 更新物理（包括玩家位置）- 使用统一的移动逻辑
     updatePhysics();
 
     // 同步相机到玩家位置和视角
     camera.position.copy(player.position);
+    camera.position.y += 1.6; // 添加相机高度偏移
     camera.quaternion.setFromEuler(player.rotation);
 
     // 渲染
     renderer.render(scene, camera);
 
     // 调试信息（可选）
-    document.getElementById('debug').textContent = 
-        `位置: X${player.position.x.toFixed(1)} Y${player.position.y.toFixed(1)} Z${player.position.z.toFixed(1)}\n` +
-        `视角: 水平${(player.rotation.y * 180/Math.PI).toFixed(1)}° 垂直${(player.rotation.x * 180/Math.PI).toFixed(1)}°`;
+    // document.getElementById('debug').textContent = 
+    //     `位置: X${player.position.x.toFixed(1)} Y${player.position.y.toFixed(1)} Z${player.position.z.toFixed(1)}\n` +
+    //     `视角: 水平${(player.rotation.y * 180/Math.PI).toFixed(1)}° 垂直${(player.rotation.x * 180/Math.PI).toFixed(1)}°`;
 }
 
 
